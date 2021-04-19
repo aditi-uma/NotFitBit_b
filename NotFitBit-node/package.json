@@ -4,9 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node express.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start:dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aditi-uma/notfitbit-b.git"
   },
   "author": "Aditi",
   "license": "ISC",
