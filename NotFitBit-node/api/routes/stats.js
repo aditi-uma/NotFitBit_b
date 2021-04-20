@@ -26,11 +26,14 @@ router.post("/:date/:steps", (req, res, next) => {
   Day.findOne({ date: Number(req.params.date) })
     .exec()
     .then((doc) => {
-      var steps = Number(doc.steps) + Number(req.params.steps);
-      var cals =
+      var steps = Math.trunc(Number(doc.steps) + Number(req.params.steps));
+      var cals = Math.trunc(
         doc.calories +
-        (wt * 1.036 * ht * 0.45 * Number(req.params.steps)) / 1000;
-      var dist = doc.distance + (ht * 0.45 * Number(req.params.steps)) / 1000;
+          (wt * 1.036 * ht * 0.45 * Number(req.params.steps)) / 1000
+      );
+      var dist = Math.trunc(
+        doc.distance + (ht * 0.45 * Number(req.params.steps)) / 1000
+      );
 
       Day.updateOne(
         { date: Number(req.params.date) },
@@ -45,18 +48,22 @@ router.post("/:date/:steps", (req, res, next) => {
             .exec()
             .then((doc) => {
               doc.steps = Number(doc.steps) + Number(req.params.steps);
-              doc.calories =
+              doc.calories = Math.trunc(
                 doc.calories +
-                (wt * 1.036 * ht * 0.45 * Number(req.params.steps)) / 1000;
-              doc.distance =
-                doc.distance + (ht * 0.45 * Number(req.params.steps)) / 1000;
+                  (wt * 1.036 * ht * 0.45 * Number(req.params.steps)) / 1000
+              );
+              doc.distance = Math.trunc(
+                doc.distance + (ht * 0.45 * Number(req.params.steps)) / 1000
+              );
               doc[month].steps = doc[month].steps + Number(req.params.steps);
-              doc[month].calories =
+              doc[month].calories = Math.trunc(
                 doc[month].calories +
-                (wt * 1.036 * ht * 0.45 * Number(req.params.steps)) / 1000;
-              doc[month].distance =
+                  (wt * 1.036 * ht * 0.45 * Number(req.params.steps)) / 1000
+              );
+              doc[month].distance = Math.trunc(
                 doc[month].distance +
-                (ht * 0.45 * Number(req.params.steps)) / 1000;
+                  (ht * 0.45 * Number(req.params.steps)) / 1000
+              );
               doc
                 .save()
                 .then((result) => console.log(result))
@@ -66,14 +73,20 @@ router.post("/:date/:steps", (req, res, next) => {
               const nyear = new Year({
                 _id: new mongoose.Types.ObjectId(),
                 year: year,
-                distance: (ht * 0.45 * Number(req.params.steps)) / 1000,
-                calories:
-                  (wt * 1.036 * ht * 0.45 * Number(req.params.steps)) / 1000,
+                distance: Math.trunc(
+                  (ht * 0.45 * Number(req.params.steps)) / 1000
+                ),
+                calories: Math.trunc(
+                  (wt * 1.036 * ht * 0.45 * Number(req.params.steps)) / 1000
+                ),
                 [month]: {
                   steps: Number(req.params.steps),
-                  distance: (ht * 0.45 * Number(req.params.steps)) / 1000,
-                  calories:
-                    (wt * 1.036 * ht * 0.45 * Number(req.params.steps)) / 1000,
+                  distance: Math.trunc(
+                    (ht * 0.45 * Number(req.params.steps)) / 1000
+                  ),
+                  calories: Math.trunc(
+                    (wt * 1.036 * ht * 0.45 * Number(req.params.steps)) / 1000
+                  ),
                 },
               });
 
@@ -97,11 +110,14 @@ router.post("/:date/:steps", (req, res, next) => {
         _id: new mongoose.Types.ObjectId(),
         date: req.params.date,
         steps: req.params.steps,
-        calories:
+        calories: Math.trunc(
           (Number(wt) * 1.036 * Number(ht) * 0.45 * Number(req.params.steps)) /
-          1000,
+            1000
+        ),
 
-        distance: Number(ht * 0.45 * Number(req.params.steps)) / 1000,
+        distance: Math.trunc(
+          Number(ht * 0.45 * Number(req.params.steps)) / 1000
+        ),
       });
       day
         .save()
@@ -115,17 +131,21 @@ router.post("/:date/:steps", (req, res, next) => {
             .then((doc) => {
               doc.steps = Number(doc.steps) + Number(req.params.steps);
               doc[month].steps = doc[month].steps + Number(req.params.steps);
-              doc.calories =
+              doc.calories = Math.trunc(
                 doc.calories +
-                (wt * 1.036 * ht * 0.45 * Number(req.params.steps)) / 1000;
-              doc.distance =
-                doc.distance + (ht * 0.45 * Number(req.params.steps)) / 1000;
-              doc[month].calories =
+                  (wt * 1.036 * ht * 0.45 * Number(req.params.steps)) / 1000
+              );
+              doc.distance = Math.trunc(
+                doc.distance + (ht * 0.45 * Number(req.params.steps)) / 1000
+              );
+              doc[month].calories = Math.trunc(
                 doc[month].calories +
-                (wt * 1.036 * ht * 0.45 * Number(req.params.steps)) / 1000;
-              doc[month].distance =
+                  (wt * 1.036 * ht * 0.45 * Number(req.params.steps)) / 1000
+              );
+              doc[month].distance = Math.trunc(
                 doc[month].distance +
-                (ht * 0.45 * Number(req.params.steps)) / 1000;
+                  (ht * 0.45 * Number(req.params.steps)) / 1000
+              );
               doc
                 .save()
                 .then((result) => console.log(result))
@@ -136,14 +156,20 @@ router.post("/:date/:steps", (req, res, next) => {
                 _id: new mongoose.Types.ObjectId(),
                 year: year,
                 steps: Number(req.params.steps),
-                distance: (ht * 0.45 * Number(req.params.steps)) / 1000,
-                calories:
-                  (wt * 1.036 * ht * 0.45 * Number(req.params.steps)) / 1000,
+                distance: Math.trunc(
+                  (ht * 0.45 * Number(req.params.steps)) / 1000
+                ),
+                calories: Math.trunc(
+                  (wt * 1.036 * ht * 0.45 * Number(req.params.steps)) / 1000
+                ),
                 [month]: {
                   steps: Number(req.params.steps),
-                  distance: (ht * 0.45 * Number(req.params.steps)) / 1000,
-                  calories:
-                    (wt * 1.036 * ht * 0.45 * Number(req.params.steps)) / 1000,
+                  distance: Math.trunc(
+                    (ht * 0.45 * Number(req.params.steps)) / 1000
+                  ),
+                  calories: Math.trunc(
+                    (wt * 1.036 * ht * 0.45 * Number(req.params.steps)) / 1000
+                  ),
                 },
               });
 
