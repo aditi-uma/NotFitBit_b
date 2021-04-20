@@ -24,7 +24,7 @@ router.post("/", (req, res, next) => {
 });
 
 router.get("/", (req, res, next) => {
-  User.find()
+  User.findOne({username:"User1"})
     .exec()
     .then((doc) => {
       res.status(200).json(doc);
